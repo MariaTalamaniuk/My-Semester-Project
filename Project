@@ -1,0 +1,230 @@
+# словники зброї
+weapon_euporia = {
+    'Attack power': {
+        'Physical': 150,
+        'Magic': 245,
+        'Fire': 0,
+        'Lightening': 0,
+        'Holy': 75,
+        'Critical': 70
+    },
+    'Damage negation': {
+        'Physical': 28.0,
+        'Magic': 70.0,
+        'Fire': 22.0,
+        'Lightening': 27.0,
+        'Guard Boost': 48
+    },
+    'Attributes': {
+        'Vigor': 55,
+        'Mind': 30,
+        'Endurance': 25,
+        'Strength': 16,
+        'Dexterity': 16,
+        'Intelligence': 16,
+        'Faith': 70,
+        'Arcane': 0.9
+    },
+}
+
+weapon_dark_moon_greatsword = {
+    'Attack power': {
+        'Physical': 200,
+        'Magic': 240,
+        'Fire': 0,
+        'Lightening': 0,
+        'Holy': 0,
+        'Critical': 100
+    },
+    'Damage negation': {
+        'Physical': 57.0,
+        'Magic': 63.0,
+        'Fire': 31.0,
+        'Lightening': 31.0,
+        'Guard Boost': 48
+    },
+    'Attributes': {
+        'Vigor': 50,
+        'Mind': 35,
+        'Endurance': 13,
+        'Strength': 16,
+        'Dexterity': 12,
+        'Intelligence': 80,
+        'Faith': 14,
+        'Arcane': 9
+    },
+}
+
+weapon_reduvia = {
+    'Attack power': {
+        'Physical': 180,
+        'Magic': 310,
+        'Fire': 70,
+        'Lightening': 0,
+        'Holy': 0,
+        'Critical': 200
+    },
+    'Damage negation': {
+        'Physical': 39.0,
+        'Magic': 77.0,
+        'Fire': 30.0,
+        'Lightening': 28.0,
+        'Guard Boost': 32
+    },
+    'Attributes': {
+        'Vigor': 50,
+        'Mind': 22,
+        'Endurance': 30,
+        'Strength': 0.8,
+        'Dexterity': 25,
+        'Intelligence': 16,
+        'Faith': 0.7,
+        'Arcane': 80
+    },
+}
+
+weapon_twinblade = {
+    'Attack power': {
+        'Physical': 210,
+        'Magic': 175,
+        'Fire': 0,
+        'Lightening': 75,
+        'Holy': 0,
+        'Critical': 75
+    },
+    'Damage negation': {
+        'Physical': 43.0,
+        'Magic': 65.0,
+        'Fire': 20.0,
+        'Lightening': 80.0,
+        'Guard Boost': 44
+    },
+    'Attributes': {
+        'Vigor': 50,
+        'Mind': 30,
+        'Endurance': 30,
+        'Strength': 35,
+        'Dexterity': 34,
+        'Intelligence': 17,
+        'Faith': 25,
+        'Arcane': 0.9
+    },
+}
+
+weapon_death_poker = {
+    'Attack power': {
+        'Physical': 170,
+        'Magic': 220,
+        'Fire': 40,
+        'Lightening': 0,
+        'Holy': 0,
+        'Critical': 75
+    },
+    'Damage negation': {
+        'Physical': 81.0,
+        'Magic': 47.0,
+        'Fire': 66.0,
+        'Lightening': 33.0,
+        'Guard Boost': 60
+    },
+    'Attributes': {
+        'Vigor': 50,
+        'Mind': 31,
+        'Endurance': 32,
+        'Strength': 35,
+        'Dexterity': 45,
+        'Intelligence': 20,
+        'Faith': 7,
+        'Arcane': 9
+    },
+}
+
+# Список всієї зброї
+weapons = {
+    'euporia': weapon_euporia,
+    'dark_moon_greatsword': weapon_dark_moon_greatsword,
+    'reduvia': weapon_reduvia,
+    'twinblade': weapon_twinblade,
+    'death_poker': weapon_death_poker,
+}
+
+
+# Функція відображення інформації про зброю
+# Словники зброї (ви вже їх визначили, тому я залишаю без змін)
+
+# Функція відображення інформації про зброю
+def show_weapon_info():
+    print("Available weapons and their keywords:")
+    for keyword in weapons:
+        print(f"- {keyword}")
+
+    user_input = input("\nEnter the keyword of the weapon you want to see details for: ").lower()
+
+    if user_input in weapons:
+        print(f"\nWeapon details for {user_input}:")
+        for category, stats in weapons[user_input].items():
+            print(f"\n{category}:")
+            for stat_name, value in stats.items():
+                print(f"  {stat_name}: {value}")
+    else:
+        print("\nWeapon not found. Please check the keyword.")
+
+# Функція порівняння двох видів зброї
+def compare_weapons():
+    print("Available weapons and their keywords:")
+    for keyword in weapons:
+        print(f"- {keyword}")
+
+    # Введення основної зброї поза циклом
+    main_weapon = input("\nEnter the keyword of the main weapon (its stats will be compared against others): ").lower()
+
+    if main_weapon not in weapons:
+        print("Main weapon not found. Please check the keyword.")
+        return  # Вихід з функції, якщо зброю не знайдено
+
+    compare_weapon = input("Enter the keyword of the weapon to compare with: ").lower()
+
+    if compare_weapon not in weapons:
+        print("Comparison weapon not found. Please check the keyword.")
+        return  # Вихід з функції, якщо зброю не знайдено
+
+    print(f"\nComparing {main_weapon} with {compare_weapon}:\n")
+
+    # Порівняння атрибутів
+    for category in weapons[main_weapon]:
+        print(f"\n{category}:")
+        for stat_name in weapons[main_weapon][category]:
+            main_value = weapons[main_weapon][category][stat_name]
+            compare_value = weapons[compare_weapon][category].get(stat_name, 0)  # Якщо параметр відсутній у другій зброї
+
+            if main_value > compare_value:
+                symbol = ">"
+            elif main_value < compare_value:
+                symbol = "<"
+            else:
+                symbol = "="
+
+            print(f"{stat_name}: {main_value} {symbol} {compare_value}")
+
+# Мейн меню
+def main_menu():
+    while True:
+        print("\nWeclome, here I'm going to present information about Elden Ring weapons!\n\nHere are the vailable weapons and their keywords:")
+        print("1. Show weapon information")
+        print("2. Compare two weapons")
+        print("3. Exit")
+
+        choice = input("Choose an option (1, 2, or 3): ")
+
+        if choice == '1':
+            show_weapon_info()
+        elif choice == '2':
+            compare_weapons()
+        elif choice == '3':
+            print("\nFarewell!")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+# запуск
+main_menu()
